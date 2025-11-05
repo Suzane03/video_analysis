@@ -1,19 +1,18 @@
 import os
 from yt_dlp import YoutubeDL
 
-# Set the target folder where you want to store the downloaded Shorts
-target_folder = "/Users/suzanefernandes/Downloads/techjam/scraped_db"  # Replace with your path
-
-# Make sure the folder exists
+target_folder = "/Users/suzanefernandes/Downloads/techjam/scraped_db"
 os.makedirs(target_folder, exist_ok=True)
 
-channel_shorts_url = "https://www.youtube.com/@CuteBabyCats267/shorts"
+channel_url = "https://www.youtube.com/@cadanimals"  # The channel's main URL
 
 ydl_opts = {
-    'outtmpl': os.path.join(target_folder, '%(title)s.%(ext)s'),  # save each video as Title.ext
-    'yes_playlist': True,   # download all shorts in the playlist
-    'format': 'best',       # get best quality available
+    'outtmpl': os.path.join(target_folder, '%(title)s.%(ext)s'),
+    'yes_playlist': True,   # download all videos in the channel's playlist
+    'format': 'best',
+    'ignoreerrors': True,   # skip videos with errors
+    # You can add 'download_archive': 'downloaded.txt' to skip previously downloaded
 }
 
 with YoutubeDL(ydl_opts) as ydl:
-    ydl.download([channel_shorts_url])
+    ydl.download([f"{channel_url}/videos"])
